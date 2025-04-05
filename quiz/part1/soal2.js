@@ -11,31 +11,57 @@
 //tips gunakan keyword ini di google "conditional switch case javascript"
 //dan mulailah membaca dan mencontek di stackoverflow xixixi
 
+const readline = require('readline');
 
-const prompt = require('prompt-sync')();
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-let tanggal = prompt("masukkan tanggal 1-31: ");
-let bulan = prompt("masukkan bulan 1-12: ");
-let tahun = prompt("masukkan tahun: ");
+rl.question('Masukkan tanggal (1-31): ', (inputTanggal) => {
+    const tanggal = parseInt(inputTanggal);
+    if (isNaN(tanggal) || tanggal < 1 || tanggal > 31) {
+        console.log("Tanggal tidak valid. Harus antara 1 - 31.");
+        rl.close();
+        return;
+    }
 
+    rl.question('Masukkan bulan (1-12): ', (inputBulan) => {
+        const bulan = parseInt(inputBulan);
+        if (isNaN(bulan) || bulan < 1 || bulan > 12) {
+            console.log("Bulan tidak valid. Harus antara 1 - 12.");
+            rl.close();
+            return;
+        }
 
-const bulanNames = {
-    1: "Januari",
-    2: "Februari",
-    3: "Maret",
-    4: "April",
-    5: "Mei",
-    6: "Juni",
-    7: "Juli",
-    8: "Agustus",
-    9: "September",
-    10: "Oktober",
-    11: "November",
-    12: "Desember"
-};
+        rl.question('Masukkan tahun (1900-2200): ', (inputTahun) => {
+            const tahun = parseInt(inputTahun);
+            if (isNaN(tahun) || tahun < 1900 || tahun > 2200) {
+                console.log("Tahun tidak valid. Harus antara 1900 - 2200.");
+                rl.close();
+                return;
+            }
 
-let formattedDate = `${tanggal} ${bulanNames[bulan]} ${tahun}`;
-console.log(formattedDate);
+            let bulanNama;
+            switch (bulan) {
+                case 1: bulanNama = "Januari"; break;
+                case 2: bulanNama = "Februari"; break;
+                case 3: bulanNama = "Maret"; break;
+                case 4: bulanNama = "April"; break;
+                case 5: bulanNama = "Mei"; break;
+                case 6: bulanNama = "Juni"; break;
+                case 7: bulanNama = "Juli"; break;
+                case 8: bulanNama = "Agustus"; break;
+                case 9: bulanNama = "September"; break;
+                case 10: bulanNama = "Oktober"; break;
+                case 11: bulanNama = "November"; break;
+                case 12: bulanNama = "Desember"; break;
+            }
 
+            console.log(`${tanggal} ${bulanNama} ${tahun}`);
+            rl.close();
+        });
+    });
+});
 
 //code switch case kamu disini
